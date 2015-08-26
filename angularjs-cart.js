@@ -29,19 +29,22 @@
     // - cart: the shopping cart object
     var storeController = function($scope, $routeParams, DataService) {
 
-        var productData = $scope.productData;
+        $scope.$watch("productData", function() {
 
-        if (productData && productData.length) {
+            var productData = $scope.productData;
 
-            // get store and cart from service
-            $scope.store = DataService.store(productData);
-            $scope.cart = DataService.cart;
+            if (productData && productData.length) {
 
-            // use routing to pick the selected product
-            if ($routeParams.productSku != null) {
-                $scope.product = $scope.store.getProduct($routeParams.productSku);
+                // get store and cart from service
+                $scope.store = DataService.store(productData);
+                $scope.cart = DataService.cart;
+
+                // use routing to pick the selected product
+                if ($routeParams.productSku != null) {
+                    $scope.product = $scope.store.getProduct($routeParams.productSku);
+                }
             }
-        }
+        });
     };
 
     storeApp.directive("shoppingCart", function() {
