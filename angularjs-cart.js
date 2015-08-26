@@ -26,7 +26,7 @@
 
     storeApp.directive("shoppingCart", function() {
         return {
-            templateUrl: "angularjs-cart.html"
+            templateUrl: "../angularjs-cart.html"
         }
     });
 
