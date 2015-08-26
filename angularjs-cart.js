@@ -26,7 +26,7 @@
 
     storeApp.directive("shoppingCart", function() {
         return {
-            restrict: "E"
+            restrict: "E",
             templateUrl: "partials/angularjs-cart.html",
             controller: "storeController",
             scope: {
