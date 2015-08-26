@@ -15,12 +15,22 @@ module.exports = function(grunt) {
                     append: true
                 }
             }
+        },
+        watch: {
+            scripts: {
+                files: ['**/*.js'],
+                tasks: ['default'],
+                options: {
+                    spawn: false,
+                },
+            },
         }
     });
 
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-angular-templates');
 
-    grunt.registerTask('default', ['copy','ngtemplates']);
+    grunt.registerTask('default', ['copy', 'ngtemplates']);
 
 };

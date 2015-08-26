@@ -24,14 +24,31 @@
         });
     }]);
 
+    // the storeController contains two objects:
+    // - store: contains the product list
+    // - cart: the shopping cart object
+    var storeController = function($scope, $routeParams, DataService) {
+        console.log($scope.productData, "hey")
+        var productData = $scope.productData;
+
+        // get store and cart from service
+        $scope.store = DataService.store(productData);
+        $scope.cart = DataService.cart;
+
+        // use routing to pick the selected product
+        if ($routeParams.productSku != null) {
+            $scope.product = $scope.store.getProduct($routeParams.productSku);
+        }
+    };
+
     storeApp.directive("shoppingCart", function() {
         return {
             restrict: "E",
             templateUrl: "partials/angularjs-cart.html",
-            controller: "storeController",
             scope: {
                 productData: "="
-            }
+            },
+            controller: storeController
         }
     });
 
@@ -40,7 +57,9 @@
     storeApp.factory("DataService", function() {
 
         // create store
-        var myStore = new store(productData);
+        var myStore = function(products) {
+            return new store(products);
+        }
 
         // create shopping cart
         var myCart = new shoppingCart("AngularStore");
@@ -85,23 +104,6 @@
             cart: myCart
         };
     });
-
-    // the storeController contains two objects:
-    // - store: contains the product list
-    // - cart: the shopping cart object
-    var storeController = function($scope, $routeParams, DataService) {
-
-        var productData = $scope.productData;
-
-        // get store and cart from service
-        $scope.store = DataService.store(productData);
-        $scope.cart = DataService.cart;
-
-        // use routing to pick the selected product
-        if ($routeParams.productSku != null) {
-            $scope.product = $scope.store.getProduct($routeParams.productSku);
-        }
-    };
 
     //----------------------------------------------------------------
     // product class
