@@ -513,4 +513,288 @@
         return null;
     };
 
-})(angular);
+})(angular);angular.module('AngularStore').run(['$templateCache', function($templateCache) {
+  'use strict';
+
+  $templateCache.put('partials/angularjs-cart.html',
+    "<style>\n" +
+    ".table td.tdRight {\n" +
+    "    text-align: right;\n" +
+    "}\n" +
+    ".table td.tdCenter {\n" +
+    "    text-align: center;\n" +
+    "}\n" +
+    ".table-nonfluid {\n" +
+    "    width: auto;\n" +
+    "}\n" +
+    "</style>\n" +
+    "\n" +
+    "<div class=\"container-fluid\">\n" +
+    "    <div class=\"row-fluid\">\n" +
+    "        <div class=\"span10 offset1\">\n" +
+    "            <h1 class=\"well\">\n" +
+    "                    <a href=\"default.htm\">\n" +
+    "                        <img src=\"img/logo.png\" height=\"60\" width=\"60\" alt=\"logo\"/>\n" +
+    "                    </a>\n" +
+    "                    Angular Store \n" +
+    "                </h1>\n" +
+    "            <div ng-view></div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n"
+  );
+
+
+  $templateCache.put('partials/product.html',
+    "<p class=\"text-info\">\n" +
+    "    <img ng-src=\"img/products/{{product.sku}}.jpg\" alt=\"{{product.name}}\"/>\n" +
+    "    {{product.name}}: {{product.description}}<br />\n" +
+    "</p>\n" +
+    "\n" +
+    "<div class=\"container-fluid\">\n" +
+    "    <div class=\"row-fluid\">\n" +
+    "        <div class=\"span8\">\n" +
+    "\n" +
+    "            <!-- product info -->\n" +
+    "            <table class=\"table table-bordered\">\n" +
+    "\n" +
+    "                <tr class=\"well\">\n" +
+    "                    <td class=\"tdRight\" colspan=\"3\" >\n" +
+    "                        <a href=\"default.htm#/cart\" title=\"go to shopping cart\" ng-disabled=\"cart.getTotalCount() < 1\">\n" +
+    "                            <i class=\"icon-shopping-cart\" />\n" +
+    "                            <b>{{cart.getTotalCount()}}</b> items, <b>{{cart.getTotalPrice() | currency}}</b>\n" +
+    "                            <span ng-show=\"cart.getTotalCount(product.sku) > 0\"><br />this item is in the cart</span>\n" +
+    "                        </a>\n" +
+    "                    </td>\n" +
+    "                </tr>\n" +
+    "\n" +
+    "                <tr>\n" +
+    "                    <td class=\"tdRight\"><b>Calories</b></td>\n" +
+    "                    <td class=\"tdCenter\"><h2>{{product.cal}}</h2></td>\n" +
+    "                    <td />\n" +
+    "                </tr>\n" +
+    "                <tr ng-repeat=\"(nutrientName, nutrientValue) in product.nutrients\">\n" +
+    "                    <td class=\"tdRight\"><b>{{nutrientName}}</b></td>\n" +
+    "                    <td class=\"tdCenter\"><img ng-src=\"img/r{{nutrientValue}}.png\" alt=\"{{nutrientValue}}\" /></td>\n" +
+    "                    <td>\n" +
+    "                        <b>{{store.dvaCaption[nutrientValue]}}</b>:\n" +
+    "                        {{store.dvaRange[nutrientValue]}}\n" +
+    "                        of the recommended daily value.\n" +
+    "                    </td>\n" +
+    "                </tr>\n" +
+    "\n" +
+    "                <tr class=\"well\">\n" +
+    "                    <td class=\"tdRight\" colspan=\"3\" >\n" +
+    "                        <a href=\"default.htm#/cart\" title=\"go to shopping cart\" ng-disabled=\"cart.getTotalCount() < 1\">\n" +
+    "                            <i class=\"icon-shopping-cart\" />\n" +
+    "                            <b>{{cart.getTotalCount()}}</b> items, <b>{{cart.getTotalPrice() | currency}}</b>\n" +
+    "                            <span ng-show=\"cart.getTotalCount(product.sku) > 0\"><br />this item is in the cart</span>\n" +
+    "                        </a>\n" +
+    "                    </td>\n" +
+    "                </tr>\n" +
+    "\n" +
+    "            </table>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <!-- buttons -->\n" +
+    "        <div class=\"span4\">\n" +
+    "            <button \n" +
+    "                class=\"btn btn-block btn-success\" \n" +
+    "                ng-click=\"cart.addItem(product.sku, product.name, product.price, 1)\">\n" +
+    "                <i class=\"icon-shopping-cart icon-white\" /> add to cart\n" +
+    "            </button>\n" +
+    "            <button \n" +
+    "                class=\"btn btn-block btn-danger\" \n" +
+    "                ng-click=\"cart.addItem(product.sku, product.name, product.price, -10000)\"\n" +
+    "                ng-disabled=\"cart.getTotalCount(product.sku) < 1\">\n" +
+    "                <i class=\"icon-trash icon-white\" /> remove from cart\n" +
+    "            </button>\n" +
+    "            <button \n" +
+    "                class=\"btn btn-block\" \n" +
+    "                onclick=\"window.location.href=''\">\n" +
+    "                <i class=\"icon-chevron-left\" /> back to store\n" +
+    "            </button>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "\n"
+  );
+
+
+  $templateCache.put('partials/shoppingCart.html',
+    "<p class=\"text-info\">\n" +
+    "    Thanks for shopping at the Angular Store.<br />\n" +
+    "    This is your shopping cart. Here you can edit the items, \n" +
+    "    go back to the store, clear the cart, or check out.\n" +
+    "</p>\n" +
+    "\n" +
+    "<div class=\"container-fluid\">\n" +
+    "    <div class=\"row-fluid\">\n" +
+    "        <div class=\"span8\">\n" +
+    "\n" +
+    "            <!-- items -->\n" +
+    "            <table class=\"table table-bordered\">\n" +
+    "\n" +
+    "                <!-- header -->\n" +
+    "                <tr class=\"well\">\n" +
+    "                    <td><b>Item</b></td>\n" +
+    "                    <td class=\"tdCenter\"><b>Quantity</b></td>\n" +
+    "                    <td class=\"tdRight\"><b>Price</b></td>\n" +
+    "                    <td />\n" +
+    "                </tr>\n" +
+    "\n" +
+    "                <!-- empty cart message -->\n" +
+    "                <tr ng-hide=\"cart.getTotalCount() > 0\" >\n" +
+    "                    <td class=\"tdCenter\" colspan=\"4\">\n" +
+    "                        Your cart is empty.\n" +
+    "                    </td>\n" +
+    "                </tr>\n" +
+    "\n" +
+    "                <!-- cart items -->\n" +
+    "                <tr ng-repeat=\"item in cart.items | orderBy:'name'\">\n" +
+    "                    <td>{{item.name}}</td>\n" +
+    "                    <td class=\"tdCenter\">\n" +
+    "                      <div class=\"input-append\">\n" +
+    "                        <!-- use type=tel instead of  to prevent spinners -->\n" +
+    "                        <input\n" +
+    "                            class=\"span3 text-center\" type=\"tel\" \n" +
+    "                            ng-model=\"item.quantity\" \n" +
+    "                            ng-change=\"cart.saveItems()\" />\n" +
+    "                        <button \n" +
+    "                            class=\"btn btn-success\" type=\"button\" \n" +
+    "                            ng-disabled=\"item.quantity >= 1000\"\n" +
+    "                            ng-click=\"cart.addItem(item.sku, item.name, item.price, +1)\">+</button>\n" +
+    "                        <button \n" +
+    "                            class=\"btn btn-inverse\" type=\"button\" \n" +
+    "                            ng-disabled=\"item.quantity <= 1\"\n" +
+    "                            ng-click=\"cart.addItem(item.sku, item.name, item.price, -1)\">-</button>\n" +
+    "                      </div>\n" +
+    "                    </td>\n" +
+    "                    <td class=\"tdRight\">{{item.price * item.quantity | currency}}</td>\n" +
+    "                    <td class=\"tdCenter\" title=\"remove from cart\">\n" +
+    "                        <a href=\"\" ng-click=\"cart.addItem(item.sku, item.name, item.price, -10000000)\" >\n" +
+    "                            <i class=\"icon-remove\" />\n" +
+    "                        </a>\n" +
+    "                    </td>\n" +
+    "                </tr>\n" +
+    "\n" +
+    "                <!-- footer -->\n" +
+    "                <tr class=\"well\">\n" +
+    "                    <td><b>Total</b></td>\n" +
+    "                    <td class=\"tdCenter\"><b>{{cart.getTotalCount()}}</b></td>\n" +
+    "                    <td class=\"tdRight\"><b>{{cart.getTotalPrice() | currency}}</b></td>\n" +
+    "                    <td />\n" +
+    "                </tr>\n" +
+    "            </table>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <!-- buttons -->\n" +
+    "        <div class=\"span4\">\n" +
+    "            <p class=\"text-info\">\n" +
+    "                <button \n" +
+    "                    class=\"btn btn-block\" \n" +
+    "                    onclick=\"window.location.href='default.htm'\">\n" +
+    "                    <i class=\"icon-chevron-left\" /> back to store\n" +
+    "                </button>\n" +
+    "                <button \n" +
+    "                    class=\"btn btn-block btn-danger\" \n" +
+    "                    ng-click=\"cart.clearItems()\" \n" +
+    "                    ng-disabled=\"cart.getTotalCount() < 1\" >\n" +
+    "                    <i class=\"icon-trash icon-white\" /> clear cart\n" +
+    "                </button>\n" +
+    "            </p>\n" +
+    "\n" +
+    "            <br /><br />\n" +
+    "\n" +
+    "            <p class=\"text-info\">\n" +
+    "                <button\n" +
+    "                    class=\"btn btn-block btn-primary\"\n" +
+    "                    ng-click=\"cart.checkout('PayPal')\"\n" +
+    "                    ng-disabled=\"cart.getTotalCount() < 1\">\n" +
+    "                    <i class=\"icon-ok icon-white\" /> check out using PayPal\n" +
+    "                </button>\n" +
+    "                <button \n" +
+    "                    class=\"btn btn-block btn-primary\" \n" +
+    "                    ng-click=\"cart.checkout('Google')\" \n" +
+    "                    ng-disabled=\"cart.getTotalCount() < 1\">\n" +
+    "                    <i class=\"icon-ok icon-white\" /> check out using Google\n" +
+    "                </button>\n" +
+    "                <button \n" +
+    "                    class=\"btn btn-block btn-primary\" \n" +
+    "                    ng-click=\"cart.checkout('Stripe')\" \n" +
+    "                    ng-disabled=\"cart.getTotalCount() < 1\">\n" +
+    "                    <i class=\"icon-ok icon-white\" /> check out using Stripe\n" +
+    "                </button>\n" +
+    "            </p>\n" +
+    "                <!-- Stripe needs a form to post to -->\n" +
+    "                <form class=\"form-stripe\"></form>\n" +
+    "\n" +
+    "            <br /><br />\n" +
+    "\n" +
+    "            <p class=\"text-info\">\n" +
+    "                <button \n" +
+    "                    class=\"btn btn-block btn-link\"\n" +
+    "                    ng-click=\"cart.checkout('PayPal')\"\n" +
+    "                    ng-disabled=\"cart.getTotalCount() < 1\" >\n" +
+    "                    <img src=\"https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif\" alt=\"checkout PayPal\"/>\n" +
+    "                </button>    \n" +
+    "                <button \n" +
+    "                    class=\"btn btn-block btn-link\" \n" +
+    "                    ng-click=\"cart.checkout('Google')\" \n" +
+    "                    ng-disabled=\"cart.getTotalCount() < 1\" >\n" +
+    "                    <img src=\"https://checkout.google.com/buttons/checkout.gif?w=168&h=44&style=white&variant=text\" alt=\"checkoutGoogle\"/>\n" +
+    "                </button>    \n" +
+    "            </p>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n"
+  );
+
+
+  $templateCache.put('partials/store.html',
+    "<p class=\"text-info\">\n" +
+    "    Welcome to the Angular Store.<br />\n" +
+    "    Please select the products you want and add them to your shopping cart.<br />\n" +
+    "    When you are done, click the shopping cart icon to review your order and check out.\n" +
+    "</p>\n" +
+    "\n" +
+    "<p>\n" +
+    "    Search: <input ng-model=\"search\">\n" +
+    "</p>\n" +
+    "\n" +
+    "<table class=\"table table-bordered\">\n" +
+    "    <tr class=\"well\">\n" +
+    "        <td class=\"tdRight\" colspan=\"4\" >\n" +
+    "            <a href=\"default.htm#/cart\" title=\"go to shopping cart\" ng-disabled=\"cart.getTotalCount() < 1\">\n" +
+    "                <i class=\"icon-shopping-cart\" />\n" +
+    "                <b>{{cart.getTotalCount()}}</b> items, <b>{{cart.getTotalPrice() | currency}}</b>\n" +
+    "            </a>\n" +
+    "        </td>\n" +
+    "    </tr>\n" +
+    "    <tr ng-repeat=\"product in store.products | orderBy:'name' | filter:search\" >\n" +
+    "        <td class=\"tdCenter\"><img ng-src=\"img/products/{{product.sku}}.jpg\" alt=\"{{product.name}}\" /></td>\n" +
+    "        <td>\n" +
+    "            <a href=\"#/products/{{product.sku}}\"><b>{{product.name}}</b></a><br />\n" +
+    "            {{product.description}}\n" +
+    "        </td>\n" +
+    "        <td class=\"tdRight\">\n" +
+    "            {{product.price | currency}}\n" +
+    "        </td>\n" +
+    "        <td class=\"tdCenter\">\n" +
+    "            <a href=\"\" ng-click=\"cart.addItem(product.sku, product.name, product.price, 1)\">\n" +
+    "                add to cart\n" +
+    "            </a>\n" +
+    "        </td>\n" +
+    "    </tr>\n" +
+    "    <tr class=\"well\">\n" +
+    "        <td class=\"tdRight\" colspan=\"4\">\n" +
+    "            <a href=\"default.htm#/cart\" title=\"go to shopping cart\" ng-disabled=\"cart.getTotalCount() < 1\">\n" +
+    "                <i class=\"icon-shopping-cart\" />\n" +
+    "                <b>{{cart.getTotalCount()}}</b> items, <b>{{cart.getTotalPrice() | currency}}</b>\n" +
+    "            </a>\n" +
+    "        </td>\n" +
+    "    </tr>\n" +
+    "</table>\n"
+  );
+
+}]);

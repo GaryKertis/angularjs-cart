@@ -1,19 +1,26 @@
 module.exports = function(grunt) {
 
     grunt.initConfig({
+        copy: {
+            main: {
+                src: 'src/angularjs-cart.js',
+                dest: 'angularjs-cart.js',
+            },
+        },
         ngtemplates: {
             AngularStore: {
                 src: 'partials/**.html',
-                dest: 'src/angularjs-cart.js',
+                dest: 'angularjs-cart.js',
                 options: {
-                  append: true
+                    append: true
                 }
             }
         }
     });
 
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-angular-templates');
 
-    grunt.registerTask('default', ['ngtemplates']);
+    grunt.registerTask('default', ['copy','ngtemplates']);
 
 };
