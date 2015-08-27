@@ -543,18 +543,14 @@ angular.module('AngularStore').run(['$templateCache', function($templateCache) {
     "}\n" +
     "</style>\n" +
     "\n" +
-    "<div class=\"container-fluid\">\n" +
-    "    <div class=\"row-fluid\">\n" +
-    "        <div class=\"span10 offset1\">\n" +
-    "            <h1 class=\"well\">\n" +
-    "                    <a href=\"default.htm\">\n" +
-    "                        <img src=\"img/logo.png\" height=\"60\" width=\"60\" alt=\"logo\"/>\n" +
-    "                    </a>\n" +
-    "                    Angular Store \n" +
-    "                </h1>\n" +
-    "            <div ng-view></div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
+    "<div class=\"span10 offset1\">\n" +
+    "    <h1 class=\"well\">\n" +
+    "        <a href=\"default.htm\">\n" +
+    "            <img src=\"img/logo.png\" height=\"60\" width=\"60\" alt=\"logo\"/>\n" +
+    "        </a>\n" +
+    "        Angular Store \n" +
+    "    </h1>\n" +
+    "    <div ng-view></div>\n" +
     "</div>\n"
   );
 
