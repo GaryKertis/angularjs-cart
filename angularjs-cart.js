@@ -113,10 +113,11 @@
 
     //----------------------------------------------------------------
     // product class
-    var product = function(sku, name, description, price, cal, carot, vitc, folate, potassium, fiber) {
+    var product = function(sku, name, description, image, price, cal, carot, vitc, folate, potassium, fiber) {
         this.sku = sku; // product code (SKU = stock keeping unit)
         this.name = name;
         this.description = description;
+        this.image = image;
         this.price = price;
         this.cal = cal;
         this.nutrients = {
