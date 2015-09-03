@@ -498,7 +498,8 @@
                     productData[i].vitc,
                     productData[i].folate,
                     productData[i].potassium,
-                    productData[i].fibe
+                    productData[i].fibe,
+                    productData[i].image
                 ));
 
         }
