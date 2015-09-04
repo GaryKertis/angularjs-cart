@@ -784,7 +784,7 @@ angular.module('AngularStore').run(['$templateCache', function($templateCache) {
     "        </td>\n" +
     "    </tr>\n" +
     "    <tr ng-repeat=\"product in store.products | orderBy:'name' | filter:search\" >\n" +
-    "        <td class=\"tdCenter\"><img ng-src=\"{{product.image}}\" alt=\"{{product.name}}\" /></td>\n" +
+    "        <td class=\"tdCenter\"><img class=\"thumbnail\" ng-src=\"{{product.image}}\" alt=\"{{product.name}}\" /></td>\n" +
     "        <td>\n" +
     "            <a href=\"#/products/{{product.sku}}\"><b>{{product.name}}</b></a><br />\n" +
     "            {{product.description}}\n" +
