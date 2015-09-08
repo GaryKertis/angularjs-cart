@@ -547,7 +547,7 @@ angular.module('AngularStore').run(['$templateCache', function($templateCache) {
     "\n" +
     "<div class=\"span10 offset1\">\n" +
     "    <h1 class=\"well\">\n" +
-    "        <a href=\"default.htm\">\n" +
+    "        <a href=\"index.html\">\n" +
     "            <img src=\"img/logo.png\" height=\"60\" width=\"60\" alt=\"logo\"/>\n" +
     "        </a>\n" +
     "        Angular Store \n" +
@@ -572,7 +572,7 @@ angular.module('AngularStore').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <tr class=\"well\">\n" +
     "                    <td class=\"tdRight\" colspan=\"3\" >\n" +
-    "                        <a href=\"default.htm#/cart\" title=\"go to shopping cart\" ng-disabled=\"cart.getTotalCount() < 1\">\n" +
+    "                        <a href=\"index.html#/cart\" title=\"go to shopping cart\" ng-disabled=\"cart.getTotalCount() < 1\">\n" +
     "                            <i class=\"icon-shopping-cart\" />\n" +
     "                            <b>{{cart.getTotalCount()}}</b> items, <b>{{cart.getTotalPrice() | currency}}</b>\n" +
     "                            <span ng-show=\"cart.getTotalCount(product.sku) > 0\"><br />this item is in the cart</span>\n" +
@@ -597,7 +597,7 @@ angular.module('AngularStore').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <tr class=\"well\">\n" +
     "                    <td class=\"tdRight\" colspan=\"3\" >\n" +
-    "                        <a href=\"default.htm#/cart\" title=\"go to shopping cart\" ng-disabled=\"cart.getTotalCount() < 1\">\n" +
+    "                        <a href=\"index.html#/cart\" title=\"go to shopping cart\" ng-disabled=\"cart.getTotalCount() < 1\">\n" +
     "                            <i class=\"icon-shopping-cart\" />\n" +
     "                            <b>{{cart.getTotalCount()}}</b> items, <b>{{cart.getTotalPrice() | currency}}</b>\n" +
     "                            <span ng-show=\"cart.getTotalCount(product.sku) > 0\"><br />this item is in the cart</span>\n" +
@@ -777,7 +777,7 @@ angular.module('AngularStore').run(['$templateCache', function($templateCache) {
     "<table class=\"table table-bordered\">\n" +
     "    <tr class=\"well\">\n" +
     "        <td class=\"tdRight\" colspan=\"4\" >\n" +
-    "            <a href=\"default.htm#/cart\" title=\"go to shopping cart\" ng-disabled=\"cart.getTotalCount() < 1\">\n" +
+    "            <a href=\"index.html#/cart\" title=\"go to shopping cart\" ng-disabled=\"cart.getTotalCount() < 1\">\n" +
     "                <i class=\"icon-shopping-cart\" />\n" +
     "                <b>{{cart.getTotalCount()}}</b> items, <b>{{cart.getTotalPrice() | currency}}</b>\n" +
     "            </a>\n" +
@@ -800,7 +800,7 @@ angular.module('AngularStore').run(['$templateCache', function($templateCache) {
     "    </tr>\n" +
     "    <tr class=\"well\">\n" +
     "        <td class=\"tdRight\" colspan=\"4\">\n" +
-    "            <a href=\"default.htm#/cart\" title=\"go to shopping cart\" ng-disabled=\"cart.getTotalCount() < 1\">\n" +
+    "            <a href=\"index.html#/cart\" title=\"go to shopping cart\" ng-disabled=\"cart.getTotalCount() < 1\">\n" +
     "                <i class=\"icon-shopping-cart\" />\n" +
     "                <b>{{cart.getTotalCount()}}</b> items, <b>{{cart.getTotalPrice() | currency}}</b>\n" +
     "            </a>\n" +
