@@ -44,7 +44,7 @@
                     $scope.product = $scope.store.getProduct($routeParams.productSku);
                 }
             }
-        });
+        }, true);
     };
 
     storeApp.directive("shoppingCart", function() {
