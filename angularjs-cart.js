@@ -559,7 +559,7 @@ angular.module('AngularStore').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('partials/product.html',
     "<p class=\"text-info\">\n" +
-    "    <img ng-src=\"img/products/{{product.sku}}.jpg\" alt=\"{{product.name}}\"/>\n" +
+    "    <img ng-src=\"{{product.image}}\" alt=\"{{product.name}}\"/>\n" +
     "    {{product.name}}: {{product.description}}<br />\n" +
     "</p>\n" +
     "\n" +
