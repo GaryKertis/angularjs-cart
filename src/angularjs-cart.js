@@ -113,20 +113,12 @@
 
     //----------------------------------------------------------------
     // product class
-    var product = function(sku, name, description, price, cal, carot, vitc, folate, potassium, fiber, image) {
+    var product = function(sku, name, description, price, image) {
         this.sku = sku; // product code (SKU = stock keeping unit)
         this.name = name;
         this.description = description;
         this.image = image;
         this.price = price;
-        this.cal = cal;
-        this.nutrients = {
-            "Carotenoid": carot,
-            "Vitamin C": vitc,
-            "Folates": folate,
-            "Potassium": potassium,
-            "Fiber": fiber
-        };
     }
 
     //----------------------------------------------------------------
@@ -494,32 +486,12 @@
                     productData[i].name,
                     productData[i].description,
                     productData[i].price,
-                    productData[i].cal,
-                    productData[i].carot,
-                    productData[i].vitc,
-                    productData[i].folate,
-                    productData[i].potassium,
-                    productData[i].fibe,
                     productData[i].image
                 ));
 
         }
-
-        this.dvaCaption = [
-            "Negligible",
-            "Low",
-            "Average",
-            "Good",
-            "Great"
-        ];
-        this.dvaRange = [
-            "below 5%",
-            "between 5 and 10%",
-            "between 10 and 20%",
-            "between 20 and 40%",
-            "above 40%"
-        ];
     }
+
     store.prototype.getProduct = function(sku) {
         for (var i = 0; i < this.products.length; i++) {
             if (this.products[i].sku == sku)

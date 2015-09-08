@@ -113,20 +113,12 @@
 
     //----------------------------------------------------------------
     // product class
-    var product = function(sku, name, description, price, cal, carot, vitc, folate, potassium, fiber, image) {
+    var product = function(sku, name, description, price, image) {
         this.sku = sku; // product code (SKU = stock keeping unit)
         this.name = name;
         this.description = description;
         this.image = image;
         this.price = price;
-        this.cal = cal;
-        this.nutrients = {
-            "Carotenoid": carot,
-            "Vitamin C": vitc,
-            "Folates": folate,
-            "Potassium": potassium,
-            "Fiber": fiber
-        };
     }
 
     //----------------------------------------------------------------
@@ -494,32 +486,12 @@
                     productData[i].name,
                     productData[i].description,
                     productData[i].price,
-                    productData[i].cal,
-                    productData[i].carot,
-                    productData[i].vitc,
-                    productData[i].folate,
-                    productData[i].potassium,
-                    productData[i].fibe,
                     productData[i].image
                 ));
 
         }
-
-        this.dvaCaption = [
-            "Negligible",
-            "Low",
-            "Average",
-            "Good",
-            "Great"
-        ];
-        this.dvaRange = [
-            "below 5%",
-            "between 5 and 10%",
-            "between 10 and 20%",
-            "between 20 and 40%",
-            "above 40%"
-        ];
     }
+
     store.prototype.getProduct = function(sku) {
         for (var i = 0; i < this.products.length; i++) {
             if (this.products[i].sku == sku)
@@ -577,21 +549,6 @@ angular.module('AngularStore').run(['$templateCache', function($templateCache) {
     "                            <b>{{cart.getTotalCount()}}</b> items, <b>{{cart.getTotalPrice() | currency}}</b>\n" +
     "                            <span ng-show=\"cart.getTotalCount(product.sku) > 0\"><br />this item is in the cart</span>\n" +
     "                        </a>\n" +
-    "                    </td>\n" +
-    "                </tr>\n" +
-    "\n" +
-    "                <tr>\n" +
-    "                    <td class=\"tdRight\"><b>Calories</b></td>\n" +
-    "                    <td class=\"tdCenter\"><h2>{{product.cal}}</h2></td>\n" +
-    "                    <td />\n" +
-    "                </tr>\n" +
-    "                <tr ng-repeat=\"(nutrientName, nutrientValue) in product.nutrients\">\n" +
-    "                    <td class=\"tdRight\"><b>{{nutrientName}}</b></td>\n" +
-    "                    <td class=\"tdCenter\"><img ng-src=\"img/r{{nutrientValue}}.png\" alt=\"{{nutrientValue}}\" /></td>\n" +
-    "                    <td>\n" +
-    "                        <b>{{store.dvaCaption[nutrientValue]}}</b>:\n" +
-    "                        {{store.dvaRange[nutrientValue]}}\n" +
-    "                        of the recommended daily value.\n" +
     "                    </td>\n" +
     "                </tr>\n" +
     "\n" +
