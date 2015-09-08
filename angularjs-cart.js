@@ -552,16 +552,6 @@ angular.module('AngularStore').run(['$templateCache', function($templateCache) {
     "                    </td>\n" +
     "                </tr>\n" +
     "\n" +
-    "                <tr class=\"well\">\n" +
-    "                    <td class=\"tdRight\" colspan=\"3\" >\n" +
-    "                        <a href=\"index.html#/cart\" title=\"go to shopping cart\" ng-disabled=\"cart.getTotalCount() < 1\">\n" +
-    "                            <i class=\"icon-shopping-cart\" />\n" +
-    "                            <b>{{cart.getTotalCount()}}</b> items, <b>{{cart.getTotalPrice() | currency}}</b>\n" +
-    "                            <span ng-show=\"cart.getTotalCount(product.sku) > 0\"><br />this item is in the cart</span>\n" +
-    "                        </a>\n" +
-    "                    </td>\n" +
-    "                </tr>\n" +
-    "\n" +
     "            </table>\n" +
     "        </div>\n" +
     "\n" +
