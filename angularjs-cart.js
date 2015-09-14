@@ -572,7 +572,7 @@ angular.module('AngularStore').run(['$templateCache', function($templateCache) {
     "            </button>\n" +
     "            <button \n" +
     "                class=\"btn btn-block\" \n" +
-    "                onclick=\"window.location.href=''\">\n" +
+    "                ng-click=\"changeCurrentView('store')\">\n" +
     "                <i class=\"icon-chevron-left\" /> back to store\n" +
     "            </button>\n" +
     "        </div>\n" +
