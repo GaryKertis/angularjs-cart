@@ -18,6 +18,9 @@
         when('/cart', {
             templateUrl: 'partials/shoppingCart.html',
             controller: storeController
+        }).
+        otherwise({
+            redirectTo: '/store'
         });
     }]);
 
