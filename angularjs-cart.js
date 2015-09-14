@@ -4,30 +4,36 @@
 
     // App Module: the name AngularStore matches the ng-app attribute in the main <html> tag
     // the route provides parses the URL and injects the appropriate partial page
-    var storeApp = angular.module('AngularStore', []).
-    config(['$routeProvider', function($routeProvider) {
-        $routeProvider.
-        when('/store', {
-            templateUrl: 'partials/store.html',
-            controller: storeController
-        }).
-        when('/products/:productSku', {
-            templateUrl: 'partials/product.html',
-            controller: storeController
-        }).
-        when('/cart', {
-            templateUrl: 'partials/shoppingCart.html',
-            controller: storeController
-        }).
-        otherwise({
-            redirectTo: '/store'
-        });
-    }]);
+    var storeApp = angular.module('AngularStore', []);
 
     // the storeController contains two objects:
     // - store: contains the product list
     // - cart: the shopping cart object
-    var storeController = function($scope, $routeParams, DataService) {
+    var storeController = function($scope, DataService) {
+
+        $scope.currentView = "partials/store.html";
+
+        $scope.changeCurrentView = function(view, id) {
+
+            switch (view) {
+                case 'cart':
+                    $scope.currentView = "partials/shoppingCart.html";
+                    break;
+                case 'store':
+                    $scope.currentView = "partials/store.html";
+                    break;
+                case 'product':
+                    $scope.currentView = "partials/product.html"
+                    break;
+                default:
+                    $scope.currentView = "partials/store.html"
+            }
+
+            if (id) {
+                $scope.product = $scope.store.getProduct(id);
+            };
+
+        };
 
         $scope.$watch("productData", function() {
 
@@ -38,11 +44,7 @@
                 // get store and cart from service
                 $scope.store = DataService.store(productData);
                 $scope.cart = DataService.cart;
-
-                // use routing to pick the selected product
-                if ($routeParams.productSku != null) {
-                    $scope.product = $scope.store.getProduct($routeParams.productSku);
-                }
+                
             }
         }, true);
     };
@@ -524,7 +526,7 @@ angular.module('AngularStore').run(['$templateCache', function($templateCache) {
     "        </a>\n" +
     "        Angular Store \n" +
     "    </h1>\n" +
-    "    <div ng-view></div>\n" +
+    "    <div ng-include=\"currentView\"></div>\n" +
     "</div>\n"
   );
 
@@ -544,7 +546,7 @@ angular.module('AngularStore').run(['$templateCache', function($templateCache) {
     "\n" +
     "                <tr class=\"well\">\n" +
     "                    <td class=\"tdRight\" colspan=\"3\" >\n" +
-    "                        <a href=\"index.html#/cart\" title=\"go to shopping cart\" ng-disabled=\"cart.getTotalCount() < 1\">\n" +
+    "                        <a href=\"#\" ng-click=\"changeCurrentView('cart')\" title=\"go to shopping cart\" ng-disabled=\"cart.getTotalCount() < 1\">\n" +
     "                            <i class=\"icon-shopping-cart\" />\n" +
     "                            <b>{{cart.getTotalCount()}}</b> items, <b>{{cart.getTotalPrice() | currency}}</b>\n" +
     "                            <span ng-show=\"cart.getTotalCount(product.sku) > 0\"><br />this item is in the cart</span>\n" +
@@ -652,7 +654,7 @@ angular.module('AngularStore').run(['$templateCache', function($templateCache) {
     "            <p class=\"text-info\">\n" +
     "                <button \n" +
     "                    class=\"btn btn-block\" \n" +
-    "                    onclick=\"window.location.href='index.html'\">\n" +
+    "                    ng-click=\"changeCurrentView('store')\">\n" +
     "                    <i class=\"icon-chevron-left\" /> back to store\n" +
     "                </button>\n" +
     "                <button \n" +
@@ -724,7 +726,7 @@ angular.module('AngularStore').run(['$templateCache', function($templateCache) {
     "<table class=\"table table-bordered\">\n" +
     "    <tr class=\"well\">\n" +
     "        <td class=\"tdRight\" colspan=\"4\" >\n" +
-    "            <a href=\"index.html#/cart\" title=\"go to shopping cart\" ng-disabled=\"cart.getTotalCount() < 1\">\n" +
+    "            <a href=\"#\" ng-click=\"changeCurrentView('cart')\" title=\"go to shopping cart\" ng-disabled=\"cart.getTotalCount() < 1\">\n" +
     "                <i class=\"icon-shopping-cart\" />\n" +
     "                <b>{{cart.getTotalCount()}}</b> items, <b>{{cart.getTotalPrice() | currency}}</b>\n" +
     "            </a>\n" +
@@ -733,7 +735,7 @@ angular.module('AngularStore').run(['$templateCache', function($templateCache) {
     "    <tr ng-repeat=\"product in store.products | orderBy:'name' | filter:search\" >\n" +
     "        <td class=\"tdCenter\"><img class=\"thumbnail\" ng-src=\"{{product.image}}\" alt=\"{{product.name}}\" /></td>\n" +
     "        <td>\n" +
-    "            <a href=\"#/products/{{product.sku}}\"><b>{{product.name}}</b></a><br />\n" +
+    "            <a href=\"#\" ng-click=\"changeCurrentView('product', product.sku)\"><b>{{product.name}}</b></a><br />\n" +
     "            {{product.description}}\n" +
     "        </td>\n" +
     "        <td class=\"tdRight\">\n" +
@@ -747,7 +749,7 @@ angular.module('AngularStore').run(['$templateCache', function($templateCache) {
     "    </tr>\n" +
     "    <tr class=\"well\">\n" +
     "        <td class=\"tdRight\" colspan=\"4\">\n" +
-    "            <a href=\"index.html#/cart\" title=\"go to shopping cart\" ng-disabled=\"cart.getTotalCount() < 1\">\n" +
+    "            <a href=\"#\" ng-click=\"changeCurrentView('cart')\" title=\"go to shopping cart\" ng-disabled=\"cart.getTotalCount() < 1\">\n" +
     "                <i class=\"icon-shopping-cart\" />\n" +
     "                <b>{{cart.getTotalCount()}}</b> items, <b>{{cart.getTotalPrice() | currency}}</b>\n" +
     "            </a>\n" +

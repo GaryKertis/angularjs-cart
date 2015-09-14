@@ -4,30 +4,36 @@
 
     // App Module: the name AngularStore matches the ng-app attribute in the main <html> tag
     // the route provides parses the URL and injects the appropriate partial page
-    var storeApp = angular.module('AngularStore', []).
-    config(['$routeProvider', function($routeProvider) {
-        $routeProvider.
-        when('/store', {
-            templateUrl: 'partials/store.html',
-            controller: storeController
-        }).
-        when('/products/:productSku', {
-            templateUrl: 'partials/product.html',
-            controller: storeController
-        }).
-        when('/cart', {
-            templateUrl: 'partials/shoppingCart.html',
-            controller: storeController
-        }).
-        otherwise({
-            redirectTo: '/store'
-        });
-    }]);
+    var storeApp = angular.module('AngularStore', []);
 
     // the storeController contains two objects:
     // - store: contains the product list
     // - cart: the shopping cart object
-    var storeController = function($scope, $routeParams, DataService) {
+    var storeController = function($scope, DataService) {
+
+        $scope.currentView = "partials/store.html";
+
+        $scope.changeCurrentView = function(view, id) {
+
+            switch (view) {
+                case 'cart':
+                    $scope.currentView = "partials/shoppingCart.html";
+                    break;
+                case 'store':
+                    $scope.currentView = "partials/store.html";
+                    break;
+                case 'product':
+                    $scope.currentView = "partials/product.html"
+                    break;
+                default:
+                    $scope.currentView = "partials/store.html"
+            }
+
+            if (id) {
+                $scope.product = $scope.store.getProduct(id);
+            };
+
+        };
 
         $scope.$watch("productData", function() {
 
@@ -38,11 +44,7 @@
                 // get store and cart from service
                 $scope.store = DataService.store(productData);
                 $scope.cart = DataService.cart;
-
-                // use routing to pick the selected product
-                if ($routeParams.productSku != null) {
-                    $scope.product = $scope.store.getProduct($routeParams.productSku);
-                }
+                
             }
         }, true);
     };
