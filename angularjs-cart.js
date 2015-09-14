@@ -520,12 +520,6 @@ angular.module('AngularStore').run(['$templateCache', function($templateCache) {
     "</style>\n" +
     "\n" +
     "<div class=\"span10 offset1\">\n" +
-    "    <h1 class=\"well\">\n" +
-    "        <a href=\"index.html\">\n" +
-    "            <img src=\"img/logo.png\" height=\"60\" width=\"60\" alt=\"logo\"/>\n" +
-    "        </a>\n" +
-    "        Angular Store \n" +
-    "    </h1>\n" +
     "    <div ng-include=\"currentView\"></div>\n" +
     "</div>\n"
   );
